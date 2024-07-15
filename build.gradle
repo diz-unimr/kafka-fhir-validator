@@ -1,0 +1,115 @@
+plugins {
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'java'
+	id 'jacoco'
+	id 'com.diffplug.spotless' version '6.25.0'
+}
+
+group = 'de.unimarburg.diz'
+version = '0.0.2-SNAPSHOT'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+	set('springCloudVersion', "2023.0.0")
+	set("hapiFhirVersion", "7.0.0")
+	set('testContainersVersion', '1.19.5')
+}
+
+dependencies {
+	// spring cloud stream kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-streams'
+	implementation ('org.springframework.cloud:spring-cloud-stream')
+
+	// spring boot
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+	// metrics
+	implementation 'io.micrometer:micrometer-registry-prometheus'
+	implementation 'io.micrometer:micrometer-core'
+
+	// mapper
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+	// hapi fhir
+	implementation "ca.uhn.hapi.fhir:hapi-fhir-base:$hapiFhirVersion"
+	implementation "ca.uhn.hapi.fhir:hapi-fhir-client:$hapiFhirVersion"
+	implementation "ca.uhn.hapi.fhir:hapi-fhir-structures-r4:$hapiFhirVersion"
+	implementation "ca.uhn.hapi.fhir:hapi-fhir-validation:$hapiFhirVersion"
+	implementation "ca.uhn.hapi.fhir:hapi-fhir-validation-resources-r4:$hapiFhirVersion"
+	implementation 'org.miracum:kafka-fhir-serializer:1.0.2'
+	implementation 'org.projectlombok:lombok'
+
+	// unit tests
+	testImplementation 'org.springframework.cloud:spring-cloud-stream'
+	testImplementation 'org.apache.kafka:kafka-streams-test-utils:3.4.0'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	testImplementation 'org.assertj:assertj-core:3.22.0'
+	runtimeOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+jacoco {
+	toolVersion = "0.8.11"
+	reportsDirectory = layout.buildDirectory.dir('jacoco-reports')
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		csv.required = true
+		csv.outputLocation = layout.buildDirectory.file('jacoco/coverage.csv')
+		html.outputLocation = layout.buildDirectory.dir('jacoco/html')
+	}
+}
+
+jar {
+	enabled = false
+}
+
+bootJar {
+	mainClass.set('de.unimarburg.diz.kafkafhirvalidator.Application')
+}
+
+
+spotless {
+	java {
+		importOrder() // standard import order
+		// You probably want an empty string at the end - all of the
+		// imports you didn't specify explicitly will go there.
+
+		removeUnusedImports()
+
+		licenseHeader '/* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)$YEAR Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */'
+		formatAnnotations()
+		cleanthat()
+		googleJavaFormat() // has its own section below
+	}
+}
