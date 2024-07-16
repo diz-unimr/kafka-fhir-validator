@@ -13,7 +13,7 @@ public class ValidationMapper {
 
   private final FhirContext ctx;
   private final FhirProfileValidator validator;
-  private String VALID = "valid";
+  private final String VALID = "valid";
 
   public ValidationMapper() {
     this.ctx = ValidationFhirContext.getInstance();
@@ -47,7 +47,10 @@ public class ValidationMapper {
                               && !m.getMessage().contains("HAPI-0702")
                               && !m.getMessage()
                                   .contains(
-                                      "Unknown code 'http://fhir.de/CodeSystem/bfarm/icd-10-gm"))
+                                      "Unknown code 'http://fhir.de/CodeSystem/bfarm/icd-10-gm")
+                              && !m.getMessage()
+                                  .contains(
+                                      "in-memory expansion of ValueSet 'http://hl7.org/fhir/ValueSet/diagnosis-role'"))
                   .forEach(
                       m -> {
                         sb.append("ERROR: ");
