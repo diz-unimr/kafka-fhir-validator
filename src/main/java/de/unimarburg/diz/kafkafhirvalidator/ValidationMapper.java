@@ -23,7 +23,7 @@ public class ValidationMapper {
   }
 
   public String validate(String payload) {
-    Bundle bundle = null;
+    Bundle bundle;
     try {
       bundle = (Bundle) ctx.newJsonParser().parseResource(payload);
     } catch (Exception e) {
