@@ -39,7 +39,7 @@ services:
     command: >
       "while true; do
         sleep 10;
-        kafkacat -b kafka:9092 -K: -t fhir.all -P -l /data/mock-data.ndjson;
+        kafkacat -b kafka:9092 -K: -t fhir-all -P -l /data/mock-data.ndjson;
       done"
     volumes:
       - ./data/mock-data.ndjson:/data/mock-data.ndjson:ro
