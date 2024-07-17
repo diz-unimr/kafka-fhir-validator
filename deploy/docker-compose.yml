@@ -1,0 +1,11 @@
+services:
+  fhir-validator:
+    image: docker.io/library/kafka-fhir-validator:0.0.2-SNAPSHOT
+    environment:
+      - SPRING_KAFKA_BOOTSTRAPSERVERS=${SPRING_KAFKA_BOOTSTRAPSERVERS}
+      - SPRING_CLOUD_STREAM_BINDINGS_PROCESS-IN-0_DESTINATION=${FHIR_VALIDATION_INPUT1}
+      - SPRING_CLOUD_STREAM_BINDINGS_PROCESS-OUT-0_DESTINATION=${FHIR_VALIDATION_OUTPUT1}
+    ports:
+      - "8085:8080"
+    volumes:
+      - ${FHIR_VALIDATION_PROFILE_LOCATION:-?}:/workspace/node_modules
