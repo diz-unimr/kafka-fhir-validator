@@ -1,5 +1,5 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
-package de.unimarburg.diz.kafkafhirvalidator;
+package de.unimarburg.diz.kafkafhirvalidator.validator;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

@@ -1,10 +1,11 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
-package de.unimarburg.diz.kafkafhirvalidator;
+package de.unimarburg.diz.kafkafhirvalidator.validator;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.support.DefaultProfileValidationSupport;
 import ca.uhn.fhir.validation.FhirValidator;
 import ca.uhn.fhir.validation.ValidationResult;
+import de.unimarburg.diz.kafkafhirvalidator.util.FhirResourceLoader;
 import java.util.List;
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;

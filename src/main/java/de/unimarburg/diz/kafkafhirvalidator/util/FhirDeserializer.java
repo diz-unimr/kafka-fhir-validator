@@ -1,9 +1,10 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
-package de.unimarburg.diz.kafkafhirvalidator;
+package de.unimarburg.diz.kafkafhirvalidator.util;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import de.unimarburg.diz.kafkafhirvalidator.cfg.ValidationFhirContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import org.apache.kafka.common.serialization.Deserializer;
