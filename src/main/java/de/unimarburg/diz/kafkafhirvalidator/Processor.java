@@ -1,6 +1,7 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
 package de.unimarburg.diz.kafkafhirvalidator;
 
+import de.unimarburg.diz.kafkafhirvalidator.mapper.ValidationMapper;
 import java.util.function.Function;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Autowired;

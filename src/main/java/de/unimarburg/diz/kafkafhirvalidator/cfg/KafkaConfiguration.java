@@ -1,6 +1,8 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
-package de.unimarburg.diz.kafkafhirvalidator;
+package de.unimarburg.diz.kafkafhirvalidator.cfg;
 
+import de.unimarburg.diz.kafkafhirvalidator.util.FhirDeserializer;
+import de.unimarburg.diz.kafkafhirvalidator.util.FhirSerializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.errors.StreamsUncaughtExceptionHandler;

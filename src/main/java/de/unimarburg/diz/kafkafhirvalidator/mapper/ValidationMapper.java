@@ -1,12 +1,17 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
-package de.unimarburg.diz.kafkafhirvalidator;
+package de.unimarburg.diz.kafkafhirvalidator.mapper;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.validation.ResultSeverityEnum;
 import ca.uhn.fhir.validation.ValidationResult;
+import de.unimarburg.diz.kafkafhirvalidator.cfg.ValidationFhirContext;
+import de.unimarburg.diz.kafkafhirvalidator.validator.FhirProfileValidator;
+import java.io.File;
 import java.util.stream.Collectors;
 import org.hl7.fhir.r4.model.Bundle;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class ValidationMapper {
@@ -15,11 +20,22 @@ public class ValidationMapper {
   private final FhirProfileValidator validator;
   private final String VALID = "valid";
 
-  public ValidationMapper() {
+  public ValidationMapper(@Value("${app.profile-location}") String profileSourceFolder) {
     this.ctx = ValidationFhirContext.getInstance();
-    this.validator =
-        new FhirProfileValidator(ValidationFhirContext.getInstance())
-            .withResourcesFrom("node_modules", "*.json");
+    var localValidator = new FhirProfileValidator(ValidationFhirContext.getInstance());
+    if (StringUtils.hasText(profileSourceFolder)
+        && ValidationMapper.checkFolderReadble(profileSourceFolder)) {
+      this.validator = localValidator.withResourcesFrom(profileSourceFolder, "*.json");
+    } else this.validator = localValidator;
+  }
+
+  private static boolean checkFolderReadble(String path) {
+
+    var file = new File(path);
+    if (file.exists() && file.isDirectory()) {
+      return true;
+    }
+    return false;
   }
 
   public String validate(String payload) {

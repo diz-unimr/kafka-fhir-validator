@@ -12,7 +12,8 @@ spring:
   docker:
     compose:
       enabled: false
-
+app:
+  profile-location: node_modules
   #  cloud:
 #    stream:
 #      function.definition: process

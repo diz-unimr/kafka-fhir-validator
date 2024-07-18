@@ -1,6 +1,7 @@
 /* GNU AFFERO GENERAL PUBLIC LICENSE Version 3 (C)2024 Datenintegrationszentrum Fachbereich Medizin Philipps Universität Marburg */
-package de.unimarburg.diz.kafkafhirvalidator;
+package de.unimarburg.diz.kafkafhirvalidator.util;
 
+import de.unimarburg.diz.kafkafhirvalidator.cfg.ValidationFhirContext;
 import java.nio.charset.StandardCharsets;
 import org.apache.kafka.common.serialization.Serializer;
 import org.hl7.fhir.r4.model.Resource;
