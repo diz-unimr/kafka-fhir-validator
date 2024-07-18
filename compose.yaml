@@ -1,6 +1,6 @@
 services:
   kafka:
-    image: bitnami/kafka:3.3.2
+    image: bitnami/kafka:3.7.1
     hostname: kafka
     ports:
       - "9092:9092"
