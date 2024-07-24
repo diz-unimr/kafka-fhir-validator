@@ -12,23 +12,24 @@ spring:
   docker:
     compose:
       enabled: false
+  cloud:
+    stream:
+      function.definition: process
+      bindings:
+        process-in-0:
+          destination: fhir-validation-input
+        process-out-0:
+          destination: fhir-validation-output
+      kafka:
+        streams:
+          binder:
+            applicationId: kafka-fhir-validator
+            configuration:
+              compression.type: gzip
+              max.request.size: 5242880
 app:
   profile-location: node_modules
-  #  cloud:
-#    stream:
-#      function.definition: process
-#      bindings:
-#        process-in-0:
-#          destination: input-topic
-#        process-out-0:
-#          destination: output-topic
-#      kafka:
-#        streams:
-#          binder:
-#            applicationId: kafkafhirvalidator
-#            configuration:
-#              compression.type: gzip
-#              max.request.size: 5242880
+
 
 
 management:
