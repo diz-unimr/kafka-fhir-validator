@@ -34,7 +34,7 @@ services:
 
   # load some test resources into kafka
   mock-data-loader:
-    image: confluentinc/cp-kafkacat:7.1.13
+    image: confluentinc/cp-kafkacat:7.1.14
     entrypoint: [ "/bin/bash", "-c" ]
     command: >
       "while true; do
